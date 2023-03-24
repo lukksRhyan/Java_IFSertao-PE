@@ -6,29 +6,32 @@ public class App {
 		EventQueue.invokeLater(new Runnable() {
 			public void run()
 			{
-				SimpleFrame frame = new SimpleFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				SimpleFrame frame = new SimpleFrame();//Cria o objeto, ver classe SimpleFrame
+				ImageIcon img = new ImageIcon("assets/icon.gif");//Deveria Setar o icon
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Faz com que o programa encerre quando fechar a janela
 				frame.setVisible(true);
+				frame.setIconImage(img.getImage());
+				frame.setExtendedState(Frame.MAXIMIZED_BOTH);//Tela cheia
+				
 			}
 		});
-
+		
 	}
 
 }
 class SimpleFrame extends JFrame{
 	public SimpleFrame(){
-		 setSize(screenWidth/2, screenHeight/2);
-		 setTitle("Cunny");
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize();
+		int screenWidth = (int)screenSize.getWidth();
+		int screenHeight =(int) screenSize.getHeight();
+		Image icone = kit.getImage("assets/icon.gif");
+		this.setIconImage(icone);
+		setTitle("Cunny");//UOGHHH 
+		setSize(screenWidth/2, screenHeight/2);
+		 
 	}
-	Toolkit kit = Toolkit.getDefaultToolkit();
-	Dimension screenSize = kit.getScreenSize();
-	int screenWidth = (int)screenSize.getWidth();
-	int screenHeight =(int) screenSize.getHeight();
-	Image icon = kit.getImage("assets/icon.png");
-	@Override
-	public void setIconImage(Image arg0) {
-		super.setIconImage(icon);
-	}
+
 	//public static final int DEFAULT_WIDTH = 300;
 	//public static final int DEFAULT_HEIGHT = 200;
 }
