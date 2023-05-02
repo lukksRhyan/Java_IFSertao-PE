@@ -40,6 +40,8 @@ class SimpleFrame extends JFrame{
 		
 		Forma desenho = new Forma();
 		add(desenho);
+		
+		
 	}
 
 	//public static final int DEFAULT_WIDTH = 300;
@@ -53,16 +55,50 @@ class SimpleComponent extends JComponent{
 	public static final int MENSAGEM_Y = 25;
 }
 class Forma extends JComponent{
+	double altura = 800;
+	double largura = 800;
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
-		double limiteEsq = 100;
-		double limiteTopo = 100;
-		double largura = 200;
-		double altura = 200;
+		double limiteEsq = 0;
+		double limiteTopo = 0;
 		
 		Rectangle2D retangulo = new Rectangle2D.Double(limiteEsq, limiteTopo, largura, altura);
+		
 		g2.draw(retangulo);
+		Quadrado quadrado = new Quadrado(100.0, 100.0);
+		double espacamento = 0;
+		boolean cor = true;
+
+		for(int alturaAtual = 0; alturaAtual< this.altura; alturaAtual+= (quadrado.altura+espacamento)){
+			for(int larguraAtual = 0; larguraAtual< this.largura;larguraAtual+=(quadrado.largura+espacamento)){
+				Rectangle2D gQuadrado = quadrado.gerar(alturaAtual, larguraAtual);
+				cor = !cor;
+				g2.draw(gQuadrado);
+				g2.setColor(Color.BLACK);
+				if(cor) g2.setColor(Color.WHITE);
+				g2.fill(gQuadrado);
+				//limiteEsq +=quadrado.largura;
+			}
+		cor = !cor;
+		//limiteTopo +=quadrado.altura;
+		limiteEsq -= this.largura;
+		}
 
 
 	}
+}
+class Quadrado{
+	double altura;
+	double largura;
+	Quadrado(){
+		this(1.0,1.0);
+	}
+	Quadrado(double altura, double largura){
+		this.altura = altura;
+		this.largura = largura;
+	}
+	Rectangle2D gerar(double x, double y){
+		return new Rectangle2D.Double(x, y, this.largura, this.altura);
+	}
+	
 }
