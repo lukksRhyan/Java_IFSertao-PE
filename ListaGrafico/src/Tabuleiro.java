@@ -7,6 +7,7 @@ public class Tabuleiro(){
         this(8,800);
     }
     Tabuleiro(int tamanho, int dimensao){
+        setSize(dimensao,dimensao);
         this.preencher(tamanho, dimensao);
         setTitle("Tabuleiro Xadrez");
         this.setVisible(true);
@@ -16,7 +17,8 @@ public class Tabuleiro(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
                 Object cor = (par)? Color.WHITE : Color.BLACK;
-                this.casas[i][j] = new Casa();
+                this.casas[i][j] = new Casa(i+1,j+1, (dimensao/tamanho));
+                atual.setColor(cor)
                 atual = this.casas[i][j];
                 
             }
@@ -24,20 +26,20 @@ public class Tabuleiro(){
     }
 }
 class Casa extends Frame{
-    private String latitude;
-    private String longitude;
-    private int dimensao;
+    private int latitude;
+    private int longitude;
     private Object cor;
 
-    Casa(String longitude, String latitude, int dimensao){
+    Casa(int longitude, int latitude, int dimensao){
         this.longitude = longitude;
         this.latitude = latitude;
-        this.dimensao = dimensao;
+
+        setBounds();
     }
-    public String longitude (){
+    public int longitude (){
         return this.longitude;
     } 
-    public String latitude(){
+    public int latitude(){
         return this.latitude;
     }
 
