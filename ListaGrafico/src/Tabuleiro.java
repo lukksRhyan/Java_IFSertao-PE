@@ -17,7 +17,7 @@ class Tabuleiro extends JFrame{
         contentPane.add(painelTabuleiro, BorderLayout.CENTER);
         boolean cor = false;
         for(int x = 0; x < 8; x++){
-            for(int y = 0; y < 8; y++){
+            for(int y = 0; y < 2; y++){
                 casasTabuleiro[x][y] = new JPanel(new BorderLayout());
                 painelTabuleiro.add(casasTabuleiro[x][y]);
                 if (cor){
@@ -25,10 +25,19 @@ class Tabuleiro extends JFrame{
                 }else{
                     casasTabuleiro[x][y].setBackground(Color.BLACK);
                 }
-                casasTabuleiro[x][y].add(new Peca());
                 cor = !cor;
             }
             cor = !cor;
+        }
+        for(int x = 0; x < 8; x++){
+            for(int y = 0; y < 2; y++){
+        casasTabuleiro[x][y].add(new Peca(Color.RED));                
+            }
+        }
+        for(int x = 0; x < 8; x++){
+            for(int y = 6; y < 8; y++){
+        casasTabuleiro[x][y].add(new Peca(Color.BLUE));                
+            }
         }
         setVisible(true);
     }
@@ -37,12 +46,16 @@ class Tabuleiro extends JFrame{
     }
 }
 class Peca extends JButton{
+    int cor;
+    public Peca(int cor){
+        this.cor = cor;
+    }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(Color.RED);
+        g.setColor(this.cor);
         g.drawOval(5,5,35,35);
         g.fillOval(5,5,35,35);
         setOpaque(false);
-        setBackground(Color.RED);
+        setBackground(this.cor);
     }
 }
