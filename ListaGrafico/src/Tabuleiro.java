@@ -5,44 +5,55 @@ import javax.swing.*;
 class Tabuleiro extends JFrame{
     private JPanel painelTabuleiro;
     private JPanel[][] casasTabuleiro = new JPanel[8][8];
-
+    //definicao da classe
     public Tabuleiro(){
+        //Configuracao da janela
         setTitle("Tabuleiro de Xadrez");
         setSize(400,400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
         
+        //Criacao do tabuleiro na janela
         painelTabuleiro = new JPanel(new GridLayout(8, 8));
         contentPane.add(painelTabuleiro, BorderLayout.CENTER);
-        boolean cor = false;
-        for(int y = 0; y < 8; y++){
-                for(int x = 0; x < 8; x++){
-                casasTabuleiro[x][y] = new JPanel(new BorderLayout());
-                painelTabuleiro.add(casasTabuleiro[x][y]);
-                casasTabuleiro[x][y].add(new JTextField(x + "x" + y));
+
+        //Criacao das casas do tabuleiro
+        boolean cor = false;//Tipo boolean que é bnario igual as casas do tabuleiro
+        for(int linha = 0; linha < 8; linha++){            
+                for(int coluna = 0; coluna < 8; coluna++){
+                casasTabuleiro[coluna][linha] = new JPanel(new BorderLayout());
+                painelTabuleiro.add(casasTabuleiro[coluna][linha]);
+                //JTextField coord  = new JTextField(coluna + "x" + linha);
+                //coord.setOpaque(false);
+                //casasTabuleiro[coluna][linha].add(coord);
                 if (cor){
-                    casasTabuleiro[x][y].setBackground(Color.WHITE);
+                    casasTabuleiro[coluna][linha].setBackground(Color.WHITE);
                 }else{
-                    casasTabuleiro[x][y].setBackground(Color.BLACK);
+                    casasTabuleiro[coluna][linha].setBackground(Color.GREEN);
                 }
                 cor = !cor;
             }
             cor = !cor;
         }
-        for(int y = 0; y < 2; y++){
-                for(int x = 0; x < 8; x++){
-        casasTabuleiro[x][y].add(new Peca(Color.RED, x,y));             
+        //Insere as pecas vermelhas
+        for(int linha = 0; linha < 2; linha++){
+                for(int coluna = 0; coluna < 8; coluna++){
+        casasTabuleiro[coluna][linha].add(new Peca(Color.RED, coluna,linha));             
             }
         }
-        for(int y = 6; y < 8; y++){
-                for(int x = 0; x < 8; x++){
-       casasTabuleiro[x][y].add(new Peca(Color.BLUE, x, y));                
+        //Insere as pecas azuis
+        for(int linha = 6; linha < 8; linha++){
+                for(int coluna = 0; coluna < 8; coluna++){
+            casasTabuleiro[coluna][linha].add(new Peca(Color.BLUE, coluna, linha));                
             }
         }
-        casasTabuleiro[5][4].add(casasTabuleiro[6][7].getComponent(1));
-        casasTabuleiro[6][7].remove(getComponent(0));
         setVisible(true);
+        //casasTabuleiro[5][5].remove(getComponent(0));
+        casasTabuleiro[5][5].add(casasTabuleiro[6][6].getComponent(0));
+        casasTabuleiro[6][6].remove(getComponent(0));
     }
     private void possiveisDestinos(int x, int y, Color cor){
         if(cor == Color.RED){
@@ -59,11 +70,19 @@ class Tabuleiro extends JFrame{
         Color cor;
         int linhaAtual;
         int colunaAtual;
+        int direcao;
+        boolean time;
         public Peca(Color cor, int linhaAtual, int colunaAtual){
             this.cor = cor;
             this.linhaAtual = linhaAtual;
             this.colunaAtual = colunaAtual;
-            //this.add() //Novo actioListener
+            addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("clique reconhecido");
+                    possiveisDestinos(linhaAtual, colunaAtual, cor);
+                }
+            });
         }
 
         public void paintComponent(Graphics g){
@@ -74,8 +93,8 @@ class Tabuleiro extends JFrame{
             setOpaque(false);
             setBackground(this.cor);
         }
-     private void moverPeca(){
-        origem = this.getParent();
+     private void moverPeca(Selecionavel destino){
+        Container origem = this.getParent();
             if(origem.getComponentCount() == 0){
                 destino.add(origem.getComponent(0));
                 origem.remove(0);
@@ -83,10 +102,14 @@ class Tabuleiro extends JFrame{
         }
     }
     class Selecionavel extends JButton{
+        Selecionavel(){
+            setBackground(Color.BLACK);
+        }
         public void paintComponent(Graphics g){
-           g.drawRect(0, 0, 50, 50);
-           g.setColor(Color.GREEN);
-           setBackground(Color.GREEN);
+            System.out.println("Retangulo chamado");
+            g.drawRect(0, 0, 50, 50);
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 50, 50);
         }
     }
 }
