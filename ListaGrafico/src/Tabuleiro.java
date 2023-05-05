@@ -32,12 +32,12 @@ class Tabuleiro extends JFrame{
         }
         for(int y = 0; y < 2; y++){
                 for(int x = 0; x < 8; x++){
-        casasTabuleiro[x][y].add(new Peca(Color.RED));             
+        casasTabuleiro[x][y].add(new Peca(Color.RED, x,y));             
             }
         }
         for(int y = 6; y < 8; y++){
                 for(int x = 0; x < 8; x++){
-       casasTabuleiro[x][y].add(new Peca(Color.BLUE));                
+       casasTabuleiro[x][y].add(new Peca(Color.BLUE, x, y));                
             }
         }
         casasTabuleiro[5][4].add(casasTabuleiro[6][7].getComponent(1));
@@ -63,8 +63,13 @@ class Tabuleiro extends JFrame{
 }
 class Peca extends JButton{
     Color cor;
-    public Peca(Color cor){
+    int linhaAtual;
+    int colunaAtual;
+    public Peca(Color cor, int linhaAtual, int colunaAtual){
         this.cor = cor;
+        this.linhaAtual = linhaAtual;
+        this.colunaAtual = colunaAtual;
+        //this.add() //Novo actioListener
     }
 
     public void paintComponent(Graphics g){
