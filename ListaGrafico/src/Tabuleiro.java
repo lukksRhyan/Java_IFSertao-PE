@@ -20,6 +20,7 @@ class Tabuleiro extends JFrame{
                 for(int x = 0; x < 8; x++){
                 casasTabuleiro[x][y] = new JPanel(new BorderLayout());
                 painelTabuleiro.add(casasTabuleiro[x][y]);
+                casasTabuleiro[x][y].add(new JTextField(x + "x" + y));
                 if (cor){
                     casasTabuleiro[x][y].setBackground(Color.WHITE);
                 }else{
@@ -39,12 +40,15 @@ class Tabuleiro extends JFrame{
        casasTabuleiro[x][y].add(new Peca(Color.BLUE));                
             }
         }
+        casasTabuleiro[5][4].add(casasTabuleiro[6][7].getComponent(1));
+        casasTabuleiro[6][7].remove(getComponent(0));
         setVisible(true);
     }
     private void possiveisDestinos(int x, int y, Color cor){
         if(cor == Color.RED){
-            try{casasTabuleiro[x-1][y+1].add(new Peca(Color.BLACK));
-}
+            try{
+                casasTabuleiro[x-1][y+1].add(new Selecionavel());
+            }catch(Exception e){}
         }
     }
     private void moverPeca(JPanel origem, JPanel destino){
@@ -61,12 +65,6 @@ class Peca extends JButton{
     Color cor;
     public Peca(Color cor){
         this.cor = cor;
-        Peca propria = this;
-        this.addActionListener(new ActionListener(){
-            public void actionPerformed(){
-                propria.setBackground(Color.BLACK);
-            }
-        });
     }
 
     public void paintComponent(Graphics g){
@@ -76,5 +74,13 @@ class Peca extends JButton{
         g.fillOval(5,5,35,35);
         setOpaque(false);
         setBackground(this.cor);
+    }
+
+}
+class Selecionavel extends JButton{
+    public void paintComponent(Graphics g){
+       g.drawRect(0, 0, 50, 50);
+       g.setColor(Color.GREEN);
+       setBackground(Color.GREEN);
     }
 }
