@@ -51,41 +51,42 @@ class Tabuleiro extends JFrame{
             }catch(Exception e){}
         }
     }
-    private void moverPeca(JPanel origem, JPanel destino){
-        if(origem.getComponentCount() == 0){
-            destino.add(origem.getComponent(0));
-            origem.remove(0);
-        } 
-    }
+   
     public static void main(String[] args) {
         new Tabuleiro();
     }
-}
-class Peca extends JButton{
-    Color cor;
-    int linhaAtual;
-    int colunaAtual;
-    public Peca(Color cor, int linhaAtual, int colunaAtual){
-        this.cor = cor;
-        this.linhaAtual = linhaAtual;
-        this.colunaAtual = colunaAtual;
-        //this.add() //Novo actioListener
-    }
+    class Peca extends JButton{
+        Color cor;
+        int linhaAtual;
+        int colunaAtual;
+        public Peca(Color cor, int linhaAtual, int colunaAtual){
+            this.cor = cor;
+            this.linhaAtual = linhaAtual;
+            this.colunaAtual = colunaAtual;
+            //this.add() //Novo actioListener
+        }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.setColor(this.cor);
-        g.drawOval(5,5,35,35);
-        g.fillOval(5,5,35,35);
-        setOpaque(false);
-        setBackground(this.cor);
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            g.setColor(this.cor);
+            g.drawOval(5,5,35,35);
+            g.fillOval(5,5,35,35);
+            setOpaque(false);
+            setBackground(this.cor);
+        }
+     private void moverPeca(){
+        origem = this.getParent();
+            if(origem.getComponentCount() == 0){
+                destino.add(origem.getComponent(0));
+                origem.remove(0);
+            } 
+        }
     }
-
-}
-class Selecionavel extends JButton{
-    public void paintComponent(Graphics g){
-       g.drawRect(0, 0, 50, 50);
-       g.setColor(Color.GREEN);
-       setBackground(Color.GREEN);
+    class Selecionavel extends JButton{
+        public void paintComponent(Graphics g){
+           g.drawRect(0, 0, 50, 50);
+           g.setColor(Color.GREEN);
+           setBackground(Color.GREEN);
+        }
     }
 }
