@@ -6,6 +6,19 @@ class Tabuleiro extends JFrame{
     private JPanel painelTabuleiro;
     private JPanel[][] casasTabuleiro = new JPanel[8][8];
     //definicao da classe
+    public void repintar(){
+        for(int linha = 0; linha < 8; linha++){            
+                for(int coluna = 0; coluna < 8; coluna++){
+                    if (cor){
+                        casasTabuleiro[coluna][linha].setBackground(Color.WHITE);
+                    }else{
+                        casasTabuleiro[coluna][linha].setBackground(Color.GREEN);
+                    }
+                    cor = !cor;
+                }
+                cor = !cor;
+        }     
+    }
     public Tabuleiro(){
         //Configuracao da janela
         setTitle("Tabuleiro de Xadrez");
@@ -34,9 +47,7 @@ class Tabuleiro extends JFrame{
                 }else{
                     casasTabuleiro[coluna][linha].setBackground(Color.GREEN);
                 }
-                cor = !cor;
             }
-            cor = !cor;
         }
         //Insere as pecas vermelhas
         for(int linha = 0; linha < 2; linha++){
@@ -50,6 +61,7 @@ class Tabuleiro extends JFrame{
             casasTabuleiro[coluna][linha].add(new Peca(Color.BLUE, coluna, linha));                
             }
         }
+        repintar();
         setVisible(true);
         //casasTabuleiro[5][5].remove(getComponent(0));
         casasTabuleiro[5][5].add(casasTabuleiro[6][6].getComponent(0));
@@ -80,7 +92,20 @@ class Tabuleiro extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("clique reconhecido");
-                    possiveisDestinos(linhaAtual, colunaAtual, cor);
+                    if(cor == Color.BLUE){
+                    try{
+                        casasTabuleiro[linha-1][coluna+1].add(new JButton());
+                        casasTabuleiro[linha-1][coluna+1].getComponent(0).addActionListener(new ActionListener(){
+                            public void actionPerformed(){
+                                moverPeca(casasTabuleiro[linha-1][coluna+1]);
+                            }
+                        })
+                    }catch(Exception e){}
+                    try{
+                        casasTabuleiro[linha-1][coluna1].setBackground(color.GRAY);
+                    }catch(Exception e){}
+                    }
+                    repintar();
                 }
             });
         }
@@ -111,5 +136,17 @@ class Tabuleiro extends JFrame{
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 50, 50);
         }
+    }
+    class Movimento implements ActionListener{
+        public Movimento(){
+            this(0,0);
+        }
+        public Movimento(int linha, int coluna){
+
+        }
+        public void actionPerformed(ActionEvent e){
+            
+        }
+        repintar();
     }
 }
