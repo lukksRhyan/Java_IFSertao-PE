@@ -2,8 +2,13 @@ package listaencadeada;
 public class App {
 
     public static void main(String[] args) {
-        Aluno kani = new Aluno("Kani Roba",0);
-        ListaEncadeada classe = new ListaEncadeada(new Posicao(kani));
+        ListaEncadeada classe = new ListaEncadeada();
+
+        classe.Adicionar("1");
+        classe.Adicionar(1);
+        classe.Adicionar("um");
+
+        System.out.println(classe.toString());
         
         
     }
