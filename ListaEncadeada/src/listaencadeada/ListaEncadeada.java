@@ -13,7 +13,8 @@ public class ListaEncadeada {
     ListaEncadeada(No membro){// A lista precisa de pelo menos um membro pra existir
         this.primeiro = membro;
         this.ultimo = membro;
-        membro.proximo = null;
+        membro.setProximo() = null;
+        membro.setAnterior(null);
         this.numeroDeMembros = 1; 
     }
     public void Adicionar(No novo){
@@ -33,7 +34,7 @@ public class ListaEncadeada {
     }
     public void AdicionarNoInicio(Object elemento){
         No novo = new No(elemento);
-        novo.proximo = primeiro;
+        novo.setProximo() = primeiro;
         primeiro = novo;
     }
     public No busca(Object elemento){
@@ -60,7 +61,7 @@ public class ListaEncadeada {
         return atual;
     }
     public void inserir(Object elemento, int posicao){
-        No antigo = getPosicao(posicao);
+        No antigo = getPosicao(posicao-1);
         No novo = new No(antigo, elemento, antigo.proximo);
         antigo.proximo.setAnterior(novo);
         antigo.setProximo(novo);
