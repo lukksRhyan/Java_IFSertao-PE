@@ -1,9 +1,9 @@
 package listaencadeada;
 
 public class ListaEncadeada {
-    private No primeiro;
-    private No ultimo;
-    private int numeroDeMembros;
+    public No primeiro;
+    public No ultimo;
+    public int numeroDeMembros;
 
     ListaEncadeada(){
         this.primeiro = null;
@@ -13,7 +13,7 @@ public class ListaEncadeada {
     ListaEncadeada(No membro){// A lista precisa de pelo menos um membro pra existir
         this.primeiro = membro;
         this.ultimo = membro;
-        membro.setProximo() = null;
+        membro.setProximo(null);
         membro.setAnterior(null);
         this.numeroDeMembros = 1; 
     }
@@ -34,7 +34,7 @@ public class ListaEncadeada {
     }
     public void AdicionarNoInicio(Object elemento){
         No novo = new No(elemento);
-        novo.setProximo() = primeiro;
+        novo.setProximo(primeiro);
         primeiro = novo;
     }
      public void inserir(No antes,Object elemento){
@@ -92,7 +92,6 @@ public class ListaEncadeada {
     //Questao 01 lista 11/05/23
     public No getNoMeio(){//Percorrendo a lista e voltando na metade
         No atual = this.primeiro;
-        int nosLista = 0;
         
         //Indo
         for(int nosLista = 0; atual.proximo != null; nosLista++){
@@ -107,7 +106,7 @@ public class ListaEncadeada {
     }
     public No noDoMeio(){//contando o numero de membros e percorrendo metade dele
         No atual = this.primeiro;
-        int nosLista = 0;
+
         
         //Indo
         for(int nosLista = 0; atual.proximo != null; nosLista++){
@@ -116,7 +115,7 @@ public class ListaEncadeada {
         }
 
         noMeio = this.primeiro;
-        for(int = 0; i < nosLista/2; i++){
+        for(int i= 0; i < nosLista/2; i++){
             noMeio = noMeio.getProximo();    
         }
     }
@@ -125,7 +124,6 @@ public class ListaEncadeada {
     public Lista ocorrencias(Object o){
         Lista L = new Lista(2);
         No atual = this.primeiro;
-        int nosLista = 0;
         
         for(int nosLista = 0; atual.proximo != null; nosLista++){
             if(atual.getElemento() == o){
@@ -140,8 +138,31 @@ public class ListaEncadeada {
         if(alvo != null){
             inserir(alvo, novo);
         }else{
-            System.out.Println()
+            System.out.Println();
         }
 
+    }
+    //Questao 04
+    static void remover(ListaEncadeada L, Object X){
+        No atual = L.primeiro;
+        ListaEncadeada nova = new ListaEncadeada();
+        while(atual.getProximo() != null){
+            if(atual.getElemento() != X){
+                nova.Adicionar(atual);
+            }
+            atual = atual.proximo;
+        }
+    }
+    
+}
+//Questao 05
+class ListaReversa extends ListaEncadeada{
+    ListaReversa(No primeiro){
+       this.primeiro = primeiro;
+    }
+    @Override
+    public void Adicionar(No novo) {
+        primeiro.setAnterior(novo);
+        this.primeiro = novo;
     }
 }
