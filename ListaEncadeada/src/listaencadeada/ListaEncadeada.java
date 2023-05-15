@@ -37,6 +37,16 @@ public class ListaEncadeada {
         novo.setProximo() = primeiro;
         primeiro = novo;
     }
+     public void inserir(No antes,Object elemento){
+        No novo = new No(elemento);
+        No depois = alvo.getProximo();
+
+        antes.setProximo(novo);
+        novo.setAnterior(antes);
+
+        depois.setAnterior(novo);
+        novo.setProximo(depois);
+    }
     public No busca(Object elemento){
         No atual = this.primeiro;
         while (atual.proximo!= null) {
@@ -60,19 +70,14 @@ public class ListaEncadeada {
         }
         return atual;
     }
-    public void inserir(Object elemento, int posicao){
-        No antigo = getPosicao(posicao-1);
-        No novo = new No(antigo, elemento, antigo.proximo);
-        antigo.proximo.setAnterior(novo);
-        antigo.setProximo(novo);
-    }
+   
     @Override
     public String toString(){
 
         StringBuilder s = new StringBuilder();
 		s.append("[");
         No atual = this.primeiro;
-		while(atual.proximo != null) {
+		for(int nosLista = 0; atual.proximo != null; nosLista++) {
 			s.append(atual.toString());
 			s.append(", \n");
             atual = atual.proximo;
@@ -82,5 +87,61 @@ public class ListaEncadeada {
 		}
 		s.append("]");
 		return s.toString();
+    }
+
+    //Questao 01 lista 11/05/23
+    public No getNoMeio(){//Percorrendo a lista e voltando na metade
+        No atual = this.primeiro;
+        int nosLista = 0;
+        
+        //Indo
+        for(int nosLista = 0; atual.proximo != null; nosLista++){
+            nosLista += 1;
+            atual = atual.proximo;
+        }
+        //Voltando
+        for(int m = nosLista; m> nosLista/2; m--){
+            atual = atual.anterior;
+        }
+        return atual;
+    }
+    public No noDoMeio(){//contando o numero de membros e percorrendo metade dele
+        No atual = this.primeiro;
+        int nosLista = 0;
+        
+        //Indo
+        for(int nosLista = 0; atual.proximo != null; nosLista++){
+            //nosLista += 1;
+            atual = atual.getProximo();
+        }
+
+        noMeio = this.primeiro;
+        for(int = 0; i < nosLista/2; i++){
+            noMeio = noMeio.getProximo();    
+        }
+    }
+
+    //Questao 02
+    public Lista ocorrencias(Object o){
+        Lista L = new Lista(2);
+        No atual = this.primeiro;
+        int nosLista = 0;
+        
+        for(int nosLista = 0; atual.proximo != null; nosLista++){
+            if(atual.getElemento() == o){
+                L.adiciona(nosLista);
+            }
+        }
+        
+    }
+    //Questao 03
+    public void adicionarDepois(Object local, Object novo){
+        No alvo = busca(Object);
+        if(alvo != null){
+            inserir(alvo, novo);
+        }else{
+            System.out.Println()
+        }
+
     }
 }

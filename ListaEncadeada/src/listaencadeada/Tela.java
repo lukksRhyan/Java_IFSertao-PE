@@ -1,48 +1,99 @@
 package listaencadeada;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
-
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Tela extends JFrame{
-    public Tela(){
+public class Tela extends JFrame {
+    private JPanel panel;
+    private JTextArea textArea;
+    private JButton addButton;
+    private JTextField textField;
+    private JButton modifyButton;
+    private JPanel botoes;
 
-        setTitle("Lista encadeada");
-        setSize(600, 600);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-    
-        CaixaTexto texto = new CaixaTexto();
-        add(texto);
-    }
-}
+    private ListaEncadeada lista;
+    public Tela() {
+        lista = null;
+        // Configurações básicas do JFrame
+        setTitle("Lista Encadeada");
+        setSize(800, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-class CaixaTexto extends JComponent{
-    public void paintComponent(graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-        String texto = "Lista encadeada";
-        Font f = new  Font("Serif", Font.BOLD, 36);
-        g2.setFont(f);
+        // Criacao do JPanel principal
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-        FontRenderContext context = g2.getFontRenderContext();
-        Rectangle2D limites = f.getStringBounds(texto, context);
+        // Criacao da JTextArea para exibir a lista encadeada
+        textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        panel.add(scrollPane, BorderLayout.PAGE_END);
 
-        double x = (getWidth()- limites.getWidth()) /2;
-        double y = (getHeight() - limites.getHeight()/2);
-
-        double ascent =  -limites.getY();
-        double YBase = ascent + y;
-
-        g2.drawString(texto, (int) x, (int) YBase);
-        g2.setPaint(Color.BLACK);
-
-        g2.draw(new Line2D.Double(x,YBase,x+limites.getWidth(),YBase));
+        // Criacao do JButton para adicionar um novo membro à lista
+        addButton = new JButton("Adicionar novo");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TelaAdd();
+            }
+        });
         
-        Rectangle2D rect = new Rectangle2D.Double(x, y, limites.getWidth(), limites.getHeight());
-        g2.draw(rect);
+        // Criacao do JButton para modificar o membro selecionado na lista
+        modifyButton = new JButton("Modificar");
+        
+        //panel.add(addButton, BorderLayout.PAGE_START);
+        //panel.add(modifyButton, BorderLayout.PAGE_START);
+        botoes =  new JPanel();
+        botoes.add(modifyButton, BorderLayout.EAST);
+        botoes.add(addButton, BorderLayout.WEST);
+        
+        panel.add(botoes, BorderLayout.NORTH);
+        // Adiciona o JPanel principal ao JFrame
+        add(panel);
+        
+        // Exibe o JFrame
+        setVisible(true);
+    }
+    class TelaAdd extends JFrame{
+        private JPanel panel;
+        private JTextField textField;
+        private JButton addButton;
+
+        public TelaAdd(){
+            setTitle("Adicionar novo membro");
+            setSize(400, 200); 
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            
+            textField = new JTextField();
+            panel.add(textField, BorderLayout.CENTER);
+            
+            add(panel);
+            addButton = new JButton("Adicionar");
+            addButton.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    String novoMembro = textField.getText();
+                    System.out.println(novoMembro);
+                    if(lista == null){
+                        lista = new ListaEncadeada(new No(novoMembro));
+                    }else{
+                        lista.Adicionar(new No(novoMembro));
+                    }
+                    System.out.println(lista);
+                    dispose();
+                }
+            });
+            add(addButton, BorderLayout.PAGE_END);
+            setVisible(true);
+
+
+
+        }
+    }
+    public static void main(String[] args) {
+        new Tela();
     }
 }
