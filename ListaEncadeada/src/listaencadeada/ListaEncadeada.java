@@ -18,7 +18,8 @@ public class ListaEncadeada {
         this.numeroDeMembros = 1; 
     }
     public void Adicionar(No novo){
-        if(this.ultimo == null){
+        System.out.println("Metodo adicionar chamado");
+        if(this.primeiro == null){
             this.primeiro = novo;
             this.ultimo = novo;
             this.numeroDeMembros = 1; 
@@ -84,14 +85,15 @@ public class ListaEncadeada {
         StringBuilder s = new StringBuilder();
 		s.append("[");
         No atual = this.primeiro;
-		for(int nosLista = 0; atual.proximo != null; nosLista++) {
+		for(int nosLista = 0;atual.getProximo()!= null; nosLista++) {
 			s.append(atual.toString());
 			s.append(", ");
-            atual = atual.proximo;
+            atual = atual.getProximo();
         }
 		if(this.numeroDeMembros > 0) {
 			s.append(this.ultimo);
-		}
+
+        }
 		s.append("]");
 		return s.toString();
     }
@@ -143,64 +145,54 @@ public class ListaEncadeada {
             voltando= voltando.getAnterior();
         }
     }
-    //Questao 01 lista 11/05/23
-    public No getNoMeio(){//Percorrendo a lista e voltando na metade
-        No atual = this.primeiro;
-        int nosLista;
-        //Indo
-        for(nosLista= 0;atual.proximo != null; nosLista++){
-            atual = atual.proximo;
-        }
-        //Voltando
-        for(int m = nosLista; m> (nosLista/2); m--){
-            atual = atual.getAnterior();
-        }
-        return atual;
-    }
 
-    //Questao 02
-    public void ocorrencias(Object o){
-        No atual = this.primeiro;
-        
-        for(int nosLista = 0; atual.proximo != null; nosLista++){
-            if(atual.elemento.equals(o)){
-                System.out.println("Objeto encontrado na posicao " + (nosLista+1));
-            }
-            atual= atual.proximo;
-        }
-        
-    }
-    //Questao 03
-    public void adicionarDepois(Object local, Object novo){
-        No alvo = busca(local);
-        if(alvo != null){
-            inserir(alvo, novo);
-        }else{
-            System.out.println();
-        }
-
-    }
-    //Questao 04
-    static void remover(ListaEncadeada L, Object X){
-        No atual = L.primeiro;
+    static ListaEncadeada questaoExtra(ListaEncadeada L, ListaEncadeada M ){
         ListaEncadeada nova = new ListaEncadeada();
-        while(atual.getProximo() != null){
-            if(atual.getElemento() != X){
-                nova.Adicionar(atual);
+        
+        No atualL = L.primeiro;
+        No atualM = M.primeiro;
+        System.out.println(L);
+        System.out.println(M);
+        while((atualL!= null)||(atualM!=null)){
+            int elementoL = -1;
+            int elementoM = -1;
+            
+            try {
+                elementoM =(int) atualM.elemento;
+                elementoL =(int) atualL.elemento;
+                System.out.println("M: " + elementoM);
+                System.out.println("L: " + elementoL);
+                if(elementoL == elementoM){
+                    nova.Adicionar(elementoM);
+                    nova.Adicionar(elementoL);
+                    System.out.println("igual");
+                }
+                if(elementoL< elementoM){
+                    System.out.println("Comparacao");
+                    nova.Adicionar(elementoM);
+                    atualM = atualM.getProximo();
+                }else{
+                    nova.Adicionar(elementoL);
+                    atualL= atualL.getProximo().getProximo();
+                }
+            } catch (Exception e) {
+                System.out.println("erro!");
+                if(atualL == null){
+                    nova.Adicionar(elementoM);
+                    atualM = atualM.getProximo();
+                }
+                if(atualM == null){
+                    nova.Adicionar(elementoL);
+                    atualL = atualL.getProximo();
+                }
             }
-            atual = atual.proximo;
+            return nova;
         }
+        
+        
+        
+        
+        
+        return null;
     }
-    
-}
-//Questao 05
-class ListaReversa extends ListaEncadeada{
-    ListaReversa(No primeiro){
-       this.primeiro = primeiro;
     }
-    @Override
-    public void Adicionar(No novo) {
-        primeiro.setAnterior(novo);
-        this.primeiro = novo;
-    }
-}
