@@ -38,7 +38,7 @@ public class PilhaEncadeada {
     public boolean isEmpty(){
         return this.size == 0;
     }
-    public PilhaEncadeada inverse(){
+    public PilhaEncadeada inverse(){//Questao 01
         PilhaEncadeada inverse = new PilhaEncadeada();
         No out;
             while(this.getTop()!=null){
@@ -48,7 +48,7 @@ public class PilhaEncadeada {
             }
             return inverse;
         }
-    public void transfer(PilhaEncadeada sec){
+    public void transfer(PilhaEncadeada sec){//Questao 02
         PilhaEncadeada temp = sec.inverse();
         No formerTop = this.getTop();
         while (temp.getTop() !=null) {
@@ -57,7 +57,7 @@ public class PilhaEncadeada {
             temp.getTop().setnext(formerTop);
             this.push(temp.pop());
     }
-    public int uneven(){
+    public int uneven(){//Questao 03
         PilhaEncadeada temp = this.inverse();
         int uneven = 0;
         while (!temp.isEmpty()) {
