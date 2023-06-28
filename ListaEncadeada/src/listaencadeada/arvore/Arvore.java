@@ -40,15 +40,81 @@ public class Arvore {
                     }
                 }
             }
-
-            }
-            public String NoType(No no){
-                if (no == this.root) return "raiz";
-                if (no.getRight()==null && no.getLeft()==null) return "folha";
-                return "galho";
+        
         }
+        public void preorder(){
+            preorder(this.root);
+        }
+        public void preorder(No no){
+            if(no != null){
+                System.out.println(no.element);
+                preorder(no.getLeft());
+                preorder(no.getRight());
+            }
+        }
+        public void inorder(){
+            inorder(this.root);
+        }
+        public void inorder(No no){
+            if(no != null){
+                inorder(no.getLeft());
+                System.out.println(no.element);
+                inorder(no.getRight());
+            }
+        }
+         public void posorder(){
+            posorder(this.root);
+        }
+        public void posorder(No no){
+            if(no != null){
+                posorder(no.getLeft());
+                posorder(no.getRight());
+                System.out.println(no.element);
+            }
+        }
+        
+        
 
-        public 
+
+        public String NoType(No no){
+            if (no == this.root) return "raiz";
+            if (no.getRight()==null && no.getLeft()==null) return "folha";
+            return "galho";
+        }
+        public int[] caminho(int valor){
+            No ultimo = busca(valor);
+
+            int[] caminho = new int[ultimo.level];
+            for(int i = ultimo.level; i>0; i++){
+                caminho[i] = ultimo.element;
+                ultimo = ultimo.parent;
+            }
+            return caminho;
+        }
+        No busca(int valor){
+            No atual = this.root;
+            int elemento = atual.getElement();
+            while(atual != null){
+                if(elemento == atual.getElement()) return atual;
+                if(elemento < atual.getElement())atual = atual.getLeft();
+                if(elemento > atual.getElement())atual = atual.getRight();
+            }
+            return null;
+        }
+        No minimo(){
+            No atual = this.root;
+            while(atual.getLeft() != null){
+                atual = atual.getLeft();
+            }
+            return atual;   
+        }
+         No maximo(){
+            No atual = this.root;
+            while(atual.getRight() != null){
+                atual = atual.getRight();
+            }
+            return atual;   
+        }
 
     class No{
         private int element;
