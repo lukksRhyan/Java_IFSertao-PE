@@ -12,6 +12,11 @@ public class GreetingController {
     private static final String template = "Bem vindo(a), %s";
     private final AtomicLong counter = new AtomicLong();
 
+    @GetMapping("/")
+    Public String index(){
+        return "index";
+    }
+
     @GetMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "Usuario") String name){
         return new Greeting(counter.incrementAndGet(),String.format(template, name));

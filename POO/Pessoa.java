@@ -1,4 +1,3 @@
-//Antes de tudo perdoe a falta de acentuacao nos comentarios, pode ser que o encoding seja diferente e o arquivo corrompa. Ja me ocorreu.
 
 package javaapplication1;
 
